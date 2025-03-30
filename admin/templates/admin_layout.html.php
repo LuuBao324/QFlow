@@ -11,10 +11,11 @@
         <table>
             <thead>
                 <tr>
-                    <th>User_ID</th>
+                    <th>Id</th>
                     <th>Username</th>
                     <th>Email</th>
                     <th>Role</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -25,6 +26,7 @@
                         <td><?=htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8')?></td>
                         <td><?=htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8')?></td>
                         <td><?=htmlspecialchars($user['role'], ENT_QUOTES, 'UTF-8')?></td>
+                        <td><?=htmlspecialchars($user['status'], ENT_QUOTES, 'UTF-8')?></td>
                     </tr>
                 <?php endforeach; ?>    
             </tbody>

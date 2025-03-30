@@ -51,7 +51,7 @@ function insertQuestion($pdo, $user_id, $module_id, $title, $content, $image){
 }
 
 function allModules($pdo){
-    $modules = query($pdo, 'SELECT * FROM module');
+    $modules = query($pdo, 'SELECT * FROM module ORDER BY moduleName');
     return $modules->fetchAll();
 }
 
@@ -65,5 +65,11 @@ function fetchComments($pdo, $question_id){
     $query = 'SELECT comments.*, users.username FROM comments JOIN users ON comments.user_id = users.id WHERE comments.question_id = :question_id';
     $parameters = [':question_id'=> $question_id];
     return query($pdo, $query, $parameters)->fetchAll();
+}
+
+function getUser($pdo, $username){
+    $query = 'SELECT id, password FROM users WHERE username = :username';
+    $parameters = [':username'=> $username];
+    return query($pdo, $query, $parameters) ->fetch();
 }
 ?>

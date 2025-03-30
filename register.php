@@ -4,6 +4,7 @@ include 'include/DatabaseConnection.php';
 include 'include/functions.php';
 
 try {
+    $signup_error = '';
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $username = $_POST['username'];
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -17,19 +18,16 @@ try {
         if ($stmt->execute()) {
             redirect('login.php');
         } else {
-            $output = "Registration failed.";
+            $signup_error = "Registration failed.";
         }
     } else {
-        $title = 'Register';
 
-        ob_start();
         include 'templates/registerform.html.php';
-        $output = ob_get_clean();
+        
     }
 } catch (PDOException $e) {
-    $title = 'Error has occurred';
-    $output = 'Error: ' . $e->getMessage();
+    echo'Error: ' . $e->getMessage();
 }
 
-include 'templates/layout.html.php';
+
 ?>
