@@ -21,7 +21,7 @@ include 'include/functions.php';
                         $login_error = "Invalid password.";
                     }
                 } else {
-                    $login_error = "Your account has been disabled. Please contact an administrator.";
+                    $login_error = "Your account has been disabled. Please contact administrator.";
                 }
             } else {
                 $login_error = "User not found.";
