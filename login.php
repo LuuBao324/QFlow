@@ -13,11 +13,15 @@ include 'include/functions.php';
             $user = getUser($pdo,$username);
 
             if ($user) {
-                if (password_verify($password, $user['password'])) {
-                    $_SESSION['user_id'] = $user['id'];
-                    redirect('index.php');
+                if ($user['status'] ==  'active'){
+                    if (password_verify($password, $user['password'])) {
+                        $_SESSION['user_id'] = $user['id'];
+                        redirect('index.php');
+                    } else {
+                        $login_error = "Invalid password.";
+                    }
                 } else {
-                    $login_error = "Invalid password.";
+                    $login_error = "Your account has been disabled. Please contact an administrator.";
                 }
             } else {
                 $login_error = "User not found.";

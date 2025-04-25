@@ -1,4 +1,5 @@
-
+<div class="post-question">
+<div class="post-box">
 <h2>Post a Question</h2>
 <form action="" method="POST" enctype="multipart/form-data">
     <input type="text" name="title" placeholder="Question Title" required>
@@ -14,3 +15,6 @@
     <input type="file" name="image">
     <button type="submit">Post Question</button>
 </form>
+
+</div>
+</div>

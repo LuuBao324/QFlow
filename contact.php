@@ -1,7 +1,7 @@
 <?php
-include 'include/session.php';
 include 'include/DatabaseConnection.php';
 include 'include/functions.php';
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $_POST['subject'];
@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ini_set('smtp_ssl', 'auto');
 
 
-    $to = 'luunguyentanbao@gmail.com';
+    $to = 'baolntgcs230491@fpt.edu.vn';
     $subject = "<b> . $title . </b>";
     $headers = "From: $email\r\n";
     $body = "Name: $name\nEmail: $email\n\n$message";

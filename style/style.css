@@ -9,6 +9,8 @@ body {
     width: 100%;
     height: 100vh;
     background-color: rgb(245, 242, 242);
+    display: flex;
+    flex-direction: column;
 }
 
 /* Navigation bar */
@@ -111,13 +113,14 @@ main {
 }
 
 .left-side-bar {
-    flex: 0 0 250px;
+    display: flex;
     flex-basis: 26%;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     padding: 20px ;
     height: fit-content;
+    margin-top: 20px;
 }
 
 .left-side-bar h3 {
@@ -127,6 +130,12 @@ main {
     color: #1c1e21;
     font-size: 1rem;
     margin: 0;
+}
+
+.left-side-bar form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
 }
 
 .module-filters {
@@ -218,7 +227,6 @@ button:hover {
 
 /* Updated Styles for Questions */
 .content-container {
-    flex: 1;
     display: flex;
     flex-basis: 76%;
     width: 100%;
@@ -264,22 +272,23 @@ button:hover {
 
 .question-header .user-info {
     display: flex;
+    align-items: center;
     gap: 10px;
-    /* flex-direction: column; */
-    margin-left: 10px;
 }
 
-.question-header .user-info i{
-    font-size: 30px;
+.question-header .user-info .user-detail{
+    display: flex;
+    flex-direction: column;
 }
 
-.question-header .user-info .username {
+
+.question-header .user-info .user-detail .username {
     font-weight: 600;
     color: #1c1e21;
     font-size: 1.2rem;
 }
 
-.question-header .user-info .timestamp {
+.question-header .user-info .user-detail .timestamp {
     font-size: 0.7rem;
     color: #65676b;
 }
@@ -293,6 +302,11 @@ button:hover {
     margin-bottom: 8px;
     padding: 0 15px ;
     color: #1c1e21;
+}
+
+.question .comment-btn a{
+    color: white;
+    text-decoration: none;
 }
 
 .question-image {
@@ -333,44 +347,130 @@ button:hover {
     color: #dc3545;
 }
 
+/* Comment */
+.comment img{
+    width: 20px;
+}
+
+.comment .comment-header{
+    padding-left: 10px;
+}
+
+.comment .comment-header .comment-username{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.comment .comment-body{
+    padding-left: 25px;
+}
 
 
 
+/* Post question form */
 
-/* footer {
+.edit-question, .post-question {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    padding: 20px;
+
+    border-radius: 8px;
+    
+}
+
+.edit-box, .post-box {
+    text-align: center;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.post-question form, .edit-question form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 30px;
+}
+
+
+.post-question form input, .edit-question form input{
+    padding: 10px;
+}
+
+.post-question form textarea, .edit-question form textarea {
+    padding: 10px;
+}
+
+
+footer {
     text-align: center;
     padding: 10px;
     background: #f1f1f1;
-    position: relative;
+    left: 0;
     bottom: 0;
     width: 100%;
+    margin-top: auto;
 }
 
-input[type=text], input[type=password] {
+
+
+/* mail form */
+
+.mail-form {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    padding: 20px;
+    width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.mail-form h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.mail-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-
-.container {
-    padding: 16px;
-  }
-  
-span.psw {
-    float: right;
-    padding-top: 16px;
 }
-  
-button#login {
-    background-color: #007BFF;
+
+.mail-form form input,
+.mail-form form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.mail-form form textarea {
+    height: 100px;
+    resize: none;
+}
+
+.mail-form form button {
+    background-color: #007bff;
     color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
     border: none;
+    padding: 10px;
+    border-radius: 4px;
     cursor: pointer;
-    width: 100%;
-} */
+    font-size: 1rem;
+}
+
+.mail-form form button:hover {
+    background-color: #0056b3;
+    opacity: 0.9;
+}
+
+
 

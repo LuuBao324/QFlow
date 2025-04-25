@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- <link rel="stylesheet" href="style/commentpage.css"> -->
     <title>QFlow</title>
 </head>
 <body>
@@ -13,7 +13,7 @@
         <nav>
             <div class="nav-left">
                 <div class="logo">
-                    <img src="assets/logo.jpg" alt="">
+                    <a href="index.php"><img src="assets/logo.jpg" alt=""></a>
                 </div>
                 <div class="nav-search">
                     <div class="search-icon">
@@ -30,11 +30,12 @@
                 <a href="post_question.php">Post</a>
                 <a href="contact.php">Contact Us</a>
                 <a href="logout.php">Logout</a>
-                <a href="admin/users.php">Admin</a>
+                <!-- <a href="admin/auth/admin_login.php">Admin</a> -->
             <?php else: ?>
                 <a href="login.php">Login</a>
                 <a href="register.php">Register</a>
                 <a href="contact.php">Contact Us</a>
+                <a href="admin/auth/admin_login.php">Admin</a>
             <?php endif; ?>
             </div>
         </nav>

@@ -24,7 +24,7 @@
             <button type="submit" class="filter-button">Apply Filter</button>
             </div>
         </form>
-        </div>
+</div>
 
 <div class="content-container">        
 <section id="questions">
@@ -33,17 +33,15 @@
             <div class="question">
                 <div class="question-header">
                     <div class="user-info">
-                        <i class="fa-solid fa-user"></i>
-                        <span class="username"><?= htmlspecialchars($question['username']) ?></span>
-                        <span class="timestamp"><?= $question['created_at'] ?></span>
+                        <img src="assets/account.png" alt="" style="width:35px;" >
+                        <div class="user-detail">
+                            <span class="username"><?= htmlspecialchars($question['username']) ?></span>
+                            <span class="timestamp"><?= $question['created_at'] ?></span>
+                        </div>
                     </div>
                 </div>
                 
-                <h3>
-                    <a href="comment.php?id=<?= $question['id'] ?>">
-                        <?= htmlspecialchars($question['title']) ?>
-                    </a>
-                </h3>
+                <h3><?= htmlspecialchars($question['title'])?></h3>
                 
                 <p class="question-content">
                     <?= htmlspecialchars(substr($question['content'], 0, 1500)) ?>
@@ -68,6 +66,8 @@
                         <button type="submit" class="delete">Delete</button>
                     </form>
                 </div>
+
+                <button class="comment-btn"><a href="comment.php?id=<?= $question['id'] ?>">Comment</a></button>
             </div>
         <?php endforeach; ?>
     <?php else: ?>

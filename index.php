@@ -11,27 +11,11 @@ try {
     if (isset($_SESSION['selected_modules']) && !empty($_SESSION['selected_modules'])) {
         $selectedModules = $_SESSION['selected_modules'];
         
-        // Create placeholders for the IN clause
-        $placeholders = implode(',', array_fill(0, count($selectedModules), '?'));
-        
-        // Fetch questions based on selected modules
-        $sql = "SELECT questions.*, users.username 
-                FROM questions 
-                INNER JOIN users ON questions.user_id = users.id
-                WHERE questions.module_id IN ($placeholders) 
-                ORDER BY questions.created_at DESC";
-                
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute($selectedModules);
-        $questions = $stmt->fetchAll();
+        $questions = getFilteredQuestions($pdo, $selectedModules);
+
     } else {
         // Fetch all questions if no filter is applied
-        $stmt = $pdo->prepare("SELECT questions.*, users.username 
-                             FROM questions 
-                             INNER JOIN users ON questions.user_id = users.id
-                             ORDER BY questions.created_at DESC");
-        $stmt->execute();
-        $questions = $stmt->fetchAll();
+        $questions = getAllQuestions($pdo);
     }
 
     ob_start();

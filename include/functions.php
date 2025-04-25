@@ -26,13 +26,6 @@ function getDetailedQuestion($pdo, $id){
     return query($pdo, $query, $parameters)->fetch();
 }
 
-function getImage($pdo, $id){
-    $parameters = ['id'=> $id];
-    $query = query($pdo, 'SELECT image FROM questions WHERE id = :id ', $parameters);
-    return $query->fetch();
-}
-
-
 function updateQuestion($pdo, $questionId, $title, $content, $module_id, $image){
     $query = 'UPDATE questions SET title = :title, content = :content, module_id = :module_id, image = :image WHERE id = :id';
     $parameters = [':title' => $title, ':content' => $content, ':module_id' => $module_id, ':image' => $image, ':id'=> $questionId];
@@ -68,8 +61,43 @@ function fetchComments($pdo, $question_id){
 }
 
 function getUser($pdo, $username){
-    $query = 'SELECT id, password FROM users WHERE username = :username';
+    $query = 'SELECT * FROM users WHERE username = :username';
     $parameters = [':username'=> $username];
     return query($pdo, $query, $parameters) ->fetch();
 }
+
+function getAllQuestions($pdo) {
+        $stmt = query($pdo, "SELECT questions.*, users.username 
+                         FROM questions 
+                         INNER JOIN users ON questions.user_id = users.id
+                         ORDER BY questions.created_at DESC");
+        return $stmt->fetchAll();
+}
+
+function getFilteredQuestions($pdo, $moduleIds) {
+    // Create placeholders for the IN clause using named parameters
+    $placeholders = [];
+    $parameters = [];
+    
+    foreach ($moduleIds as $index => $moduleId) {
+        $paramName = ":module$index";
+        $placeholders[] = $paramName;
+        $parameters[$paramName] = $moduleId;
+    }
+    
+    $placeholderString = implode(',', $placeholders);
+    
+    // Fetch questions based on selected modules
+    $sql = "SELECT questions.*, users.username 
+            FROM questions 
+            INNER JOIN users ON questions.user_id = users.id
+            WHERE questions.module_id IN ($placeholderString) 
+            ORDER BY questions.created_at DESC";
+    
+    $stmt = query($pdo, $sql, $parameters);
+    return $stmt->fetchAll();
+}
+
+// Admin functions
+
 ?>

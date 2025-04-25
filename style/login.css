@@ -49,20 +49,13 @@ input{
   font-size: 13px;
 }
 
-/* input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-} */
+
 
 button {
   background-color: #007bff;
   color: white;
   padding: 14px 20px;
-  margin: px 0;
+  margin-bottom:  15px;
   margin-top: 20px;
   border: none;
   cursor: pointer;
@@ -80,6 +73,12 @@ p{
   margin-bottom: 10px;
 }
 
+select{
+  padding: 5px;
+  margin-top: 15px; 
+}
+
+
 #register{
   text-decoration: none;
   color: rgb(5, 5, 249);
@@ -88,4 +87,22 @@ p{
 
 .error{
   color: red;
+}
+
+.success{
+  color: green;
+}
+
+.success a{
+  font-weight: bold;
+  text-decoration: none;
+}
+
+
+
+.field-error {
+  color: #f44336;
+  font-size: 0.85em;
+  margin-top: 5px;
+  text-align: center;
 }

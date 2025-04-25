@@ -1,3 +1,4 @@
+<div class="mail-form">
 <h2>Contact Us</h2>
 <form action="" method="POST">
     <input type="text" name="subject" placeholder="Your title">
@@ -6,3 +7,4 @@
     <textarea name="message" placeholder="Your Message" required></textarea>
     <button type="submit">Send Message</button>
 </form>
+</div>

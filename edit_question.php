@@ -7,56 +7,38 @@ if (!isLoggedIn()) {
     redirect('login.php');
 }
 
-if (!isset($_GET['id'])) {
-    redirect('index.php');
-}
+// if (!isset($_GET['id'])) {
+//     redirect('index.php');
+// }
 
 $question_id = $_GET['id'];
 
 try {
+    $question = getDetailedQuestion($pdo, $question_id);
+
+    // Check if the logged-in user is the author of the question
+    if ($question['user_id'] !== $_SESSION['user_id']) {
+        redirect('index.php');
+    }
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $title = $_POST['title'];
         $content = $_POST['content'];
         $module_id = $_POST['module_id'];
-        $image = ''; // Handle image upload
+        $image = $question['image'];
 
-        // if (isset($_FILES['image']) && $_FILES['image']['error'] == 0){
-        //     // $stmt = $pdo->prepare("SELECT image FROM questions WHERE id = :id");
-        //     // $stmt->bindValue(':id', $question_id);
-        //     // $stmt->execute();
-        //     // $question = $stmt->fetch();
-        //     // $existing_image = $question['image'];
-        //     $existing_image = getImage($pdo, $_GET['id']);
-
-        //     if($existing_image && file_exists($existing_image)){
-        //         unlink($existing_image);
-        //     }
-        if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+        // Only process new image if one is uploaded
+        if (isset($_FILES['image']) && $_FILES['image']['error'] == 0 && !empty($_FILES['image']['name'])) {
+            if (!empty($image) && file_exists($image)) {
+                unlink($image);
+            }
             $image = 'uploads/' . basename($_FILES['image']['name']);
             move_uploaded_file($_FILES['image']['tmp_name'], $image);
         }
 
-        // $stmt = $pdo->prepare("UPDATE questions SET title = :title, content = :content, category_id = :category_id, image = :image WHERE id = :id");
-        // $stmt->bindValue(':title', $title);
-        // $stmt->bindValue(':content', $content);
-        // $stmt->bindValue(':category_id', $category_id);
-        // $stmt->bindValue(':image', $image);
-        // $stmt->bindValue(':id', $question_id);
         updateQuestion($pdo, $question_id, $title, $content, $module_id, $image);
-        redirect("index.php");
-        // if ($stmt->execute()) {
-        //     redirect("index.php");
-            
-        // } else {
-        //     $output = "Error updating question.";
-        // }
+        redirect('index.php');
     } else {
-        // Fetch the question details
-        // $stmt = $pdo->prepare("SELECT * FROM questions WHERE id = :id");
-        // $stmt->bindValue(':id', $question_id);
-        // $stmt->execute();
-        // $question = $stmt->fetch();
-        $question = getAllQuestion($pdo, $question_id);
         $title = 'Edit Question';
         $modules = allModules($pdo);
 

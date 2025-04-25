@@ -3,35 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Admin Area</title>
 </head>
 <body>
-    
-    <div class="UserManagement">
-        <table>
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach($users as $user): ?>
-                    <tr>
-                        <td><?=htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8')?></td>
-                        <td><?=htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8')?></td>
-                        <td><?=htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8')?></td>
-                        <td><?=htmlspecialchars($user['role'], ENT_QUOTES, 'UTF-8')?></td>
-                        <td><?=htmlspecialchars($user['status'], ENT_QUOTES, 'UTF-8')?></td>
-                    </tr>
-                <?php endforeach; ?>    
-            </tbody>
-        </table>
-        
-    </div>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #fff">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"><img src="../assets/logo.jpg" alt="logo" width="100%" height="50px"></a>
+                <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button> -->
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                    <a class="nav-link" href="module.php">Module</a>
+                    <a class="nav-link" href="auth/admin_register.php">Register</a>
+                    <a class="nav-link" href="auth/logout.php" style="float: right">Log out</a>
+                </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <?=$output?>
+    </main>
 </body>
 </html>
