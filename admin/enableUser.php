@@ -1,41 +1,39 @@
 <?php
 include '../include/session.php';
 include '../include/DatabaseConnection.php';
+include '../include/functions.php'; 
 
-// Check if user is logged in and is an admin
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
-    header('location: login.php');
-    exit();
-}
 
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $id = $_GET['id'];
+// if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
+//     redirect('login.php');
+// }
 
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
-    $stmt->execute(['id' => $id]);
-    $user = $stmt->fetch();
+try {
+    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+        $id = $_GET['id'];
+        
+        $user = getUserById($pdo, $id); 
 
-    if (!$user) {
-        $_SESSION['error'] = "User does not exist!";
-        header("Location: index.php");
-        exit();
-    }
+        if (!$user) {
+            $_SESSION['error'] = "User does not exist!";
+            redirect("index.php");
+        }
 
-    // Update status to 'active'
-    $stmt = $pdo->prepare("UPDATE users SET status = 'active' WHERE id = :id");
-    $stmt->execute(['id' => $id]);
-    
-    if ($user['role'] === 'admin') {
-        $_SESSION['success'] = "Admin has been enabled successfully!";
+        enableUserAccount($pdo, $id);
+
+        if ($user['role'] === 'admin') {
+            $_SESSION['success'] = "Admin has been enabled successfully!";
+        } else {
+            $_SESSION['success'] = "User has been enabled successfully!";
+        }
+
+        redirect("index.php");
     } else {
-        $_SESSION['success'] = "User has been enabled successfully!";
+        $_SESSION['error'] = "Invalid ID!";
+        redirect("index.php");
     }
-    
-    header("Location: index.php");
-    exit();
-} else {
-    $_SESSION['error'] = "Invalid ID!";
-    header("Location: index.php");
-    exit();
+} catch (PDOException $e) {
+    $_SESSION['error'] = "An error occurred: " . $e->getMessage();
+    redirect("index.php");
 }
 ?>

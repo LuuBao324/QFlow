@@ -11,22 +11,20 @@ $question_id = $_POST['id'];
 
 try {
     $question = getDetailedQuestion($pdo, $question_id);
+    $userRole = userRole($pdo);
 
-    // Check if the logged-in user is the author of the question
-    if ($question['user_id'] !== $_SESSION['user_id']) {
+    if ($question['user_id'] != $_SESSION['user_id'] || $userRole != 'admin') {
        redirect('index.php');
-    }
-    
-    if ($question && !empty($question['image'])) {
-        $imagepath = $question['image'];
-        if (file_exists($imagepath)) {
-            unlink($imagepath);
+    } else{
+        if ($question && !empty($question['image'])) {
+            $imagepath = $question['image'];
+            if (file_exists($imagepath)) {
+                unlink($imagepath);
+            }
         }
+        deleteQuestion($pdo, $question_id);
+        redirect('index.php');
     }
-
-    deleteQuestion($pdo, $question_id);
-    redirect('index.php');
-
 } catch (PDOException $e) {
     $title = 'Error has occurred';
     $output = 'Error: ' . $e->getMessage();
@@ -34,3 +32,4 @@ try {
 
 include 'templates/layout.html.php';
 ?>
+    

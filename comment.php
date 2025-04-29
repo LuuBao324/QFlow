@@ -13,8 +13,6 @@ try {
     
     $question = getDetailedQuestion($pdo, $question_id);
 
-    
-
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $content = $_POST['content'];
         $user_id = $_SESSION['user_id'];
@@ -41,3 +39,4 @@ try {
 
 include 'templates/layout.html.php';
 ?>
+    

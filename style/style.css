@@ -25,6 +25,9 @@ header {
     box-shadow: 0 2px 5px 5px rgba(224, 221, 221, 0.5);
     display: flex;
     align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
 }
 
 nav{
@@ -110,17 +113,28 @@ nav{
 main {
     display: flex;
     padding: 10px;
+    margin-top: 60px;
+    gap: 20px;
 }
 
 .left-side-bar {
     display: flex;
-    flex-basis: 26%;
+    flex-basis: 24%;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    margin: 20px 0 0 20px;
     padding: 20px ;
     height: fit-content;
-    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 80px;
+}
+
+.filter-content{
+    width: 30vh;
+    margin: 0 auto;
 }
 
 .left-side-bar h3 {
@@ -182,18 +196,6 @@ main {
     flex-grow: 1;
 }
 
-
-
-/* .content-container{
-    flex-basis: 50%;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-} */
-
-
 .question, .comment {
     border: 1px solid #fffdfd;
     background-color: white;
@@ -225,16 +227,17 @@ button:hover {
     opacity: 0.8;
 }
 
-/* Updated Styles for Questions */
 .content-container {
     display: flex;
-    flex-basis: 76%;
+    flex-basis: 72%;
     width: 100%;
-    max-width: 1400px;  /* Increased max-width for better responsiveness */
+    max-width: 1400px;  
     margin: 0 auto;
+    margin-right: 20px;
     padding: 20px;
-    background-color: rgb(245, 242, 242);  /* Match body background */
-    box-shadow: none;  /* Removed box shadow */
+    background-color: rgb(245, 242, 242);  
+    box-shadow: none;  
+    position: relative;
 }
 
 @media (max-width: 768px) {
@@ -246,6 +249,7 @@ button:hover {
 
 
 #questions {
+    width: 100%;
     width: 1020px;
     margin: 0 auto;
     background-color: #f0f2f5;

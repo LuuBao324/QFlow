@@ -1,17 +1,16 @@
 <?php
 try{
+    include '../include/session.php';
     include '../include/DatabaseConnection.php';
     include '../include/functions.php';
 
-    $sql = 'DELETE FROM module WHERE id = :id';
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':id', $_GET['id']);
-    $stmt->execute();
-    
+    $module_id = $_GET['id'];
+
+    deleteModule($pdo, $module_id);
     header('location: module.php');
-}catch(PDOException $e){
+} catch(PDOException $e){
     $title = 'An error has occured';
-    $output = 'Unable to connect to delete joke: ' . $e->getMessage();
+    $output = 'Unable to connect to delete module: ' . $e->getMessage();
 }
 include 'templates/admin_layout.html.php';
 ?>

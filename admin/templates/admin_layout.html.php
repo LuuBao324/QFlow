@@ -10,16 +10,13 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #fff">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#"><img src="../assets/logo.jpg" alt="logo" width="100%" height="50px"></a>
-                <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button> -->
+                <a class="navbar-brand" href="index.php"><img src="../assets/logo.jpg" alt="logo" width="100%" height="50px"></a>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="index.php">Home</a>
-                    <a class="nav-link" href="module.php">Module</a>
-                    <a class="nav-link" href="auth/admin_register.php">Register</a>
-                    <a class="nav-link" href="auth/logout.php" style="float: right">Log out</a>
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-item nav-link px-3 active" aria-current="page" href="index.php">Home</a>
+                    <a class="nav-item nav-link px-3" href="module.php">Module</a>
+                    <a class="nav-item nav-link px-3" href="auth/admin_register.php">Register</a>
+                    <a class="nav-item nav-link px-3" href="auth/logout.php" style="float: right">Log out</a>
                 </div>
                 </div>
             </div>

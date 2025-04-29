@@ -5,8 +5,7 @@ include '../../include/functions.php';
 
 // Check if the current user is logged in and is an admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header('location: admin_login.php');
-    exit();
+    redirect('admin_login.php');
 }
 
 $register_error = '';
@@ -22,10 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors['username'] = "Username must be at least 3 characters.";
     } else {
         // Check if username already exists
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE username = :username");
-        $stmt->bindValue(':username', $username);
-        $stmt->execute();
-        if ($stmt->fetchColumn() > 0) {
+        if (usernameExists($pdo, $username)) { // Use function to check username existence
             $errors['username'] = "Username already taken.";
         }
     }
@@ -38,10 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors['email'] = "Please enter a valid email address.";
     } else {
         // Check if email already exists
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
-        $stmt->bindValue(':email', $email);
-        $stmt->execute();
-        if ($stmt->fetchColumn() > 0) {
+        if (emailExists($pdo, $email)) { // Use function to check email existence
             $errors['email'] = "Email address already registered.";
         }
     }
@@ -62,8 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors['confirm_password'] = "Passwords do not match.";
     }
     
-    // role
+    // Role
     $role = $_POST['role'];
+    $status = 'active'; // Default status for new users
     
     // If no errors, proceed with registration
     if (empty($errors)) {
@@ -72,14 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             
             // Insert new user
-            $stmt = $pdo->prepare("INSERT INTO users (username, email, password, role, status) VALUES (:username, :email, :password, :role, :status)");
-            $result = $stmt->execute([
-                ':username' => $username,
-                ':email' => $email,
-                ':password' => $hashed_password,
-                ':role' => $role,
-                ':status' => $status
-            ]);
+            $result = insertUser($pdo, $username, $hashed_password, $email, $role, $status); // Use function to insert user
 
             if ($result) {
                 $register_success = 'User registered successfully!';
@@ -92,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 $register_error = 'Registration failed. Please try again.';
             }
-        } catch(PDOException $e) {
+        } catch (PDOException $e) {
             error_log('Database Error: ' . $e->getMessage());
             $register_error = 'Database error occurred. Please try again later.';
         }

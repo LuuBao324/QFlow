@@ -1,22 +1,19 @@
 <?php
-try{ 
-include '../include/DatabaseConnection.php';
- 
+try { 
+    include '../include/session.php';
+    include '../include/DatabaseConnection.php';
+    include '../include/functions.php'; 
 
- $sql = "SELECT * FROM users ORDER BY role DESC, id ASC";
- $stmt = $pdo->prepare($sql);
- $stmt->execute();
- $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $users = getAllUsers($pdo); 
 
- ob_start();
- include 'templates/User_management.html.php';
- $output = ob_get_clean();
-}catch(PDOException $e){
-    $title = 'An error has occured';
+    ob_start();
+    include 'templates/User_management.html.php';
+    $output = ob_get_clean();
+} catch (PDOException $e) {
+    $title = 'An error has occurred';
     $output = 'Database error: ' . $e->getMessage();
 }
 include 'templates/admin_layout.html.php';
- ?>
+?>
 
- 
- 
+

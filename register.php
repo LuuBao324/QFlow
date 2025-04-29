@@ -14,10 +14,7 @@ try {
             $errors['username'] = "Username must be at least 3 characters.";
         } else {
             // Check if username already exists
-            $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE username = :username");
-            $stmt->bindValue(':username', $username);
-            $stmt->execute();
-            if ($stmt->fetchColumn() > 0) {
+            if (usernameExists($pdo, $username)) {
                 $errors['username'] = "Username already taken.";
             }
         }
@@ -28,10 +25,7 @@ try {
             $errors['email'] = "Please enter a valid email address.";
         } else {
             // Check if email already exists
-            $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
-            $stmt->bindValue(':email', $email);
-            $stmt->execute();
-            if ($stmt->fetchColumn() > 0) {
+            if (emailExists($pdo, $email)) {
                 $errors['email'] = "Email address already registered.";
             }
         }
@@ -47,26 +41,21 @@ try {
         if ($password !== $confirm_password) {
             $errors['confirm_password'] = "Passwords do not match.";
         }
+
+        $role = 'user';
+        $status = 'active';
         
         // If no errors, proceed with registration
         if (empty($errors)) {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             
-            $stmt = $pdo->prepare("INSERT INTO users (username, password, email) VALUES (:username, :password, :email)");
-            $stmt->bindValue(':username', $username);
-            $stmt->bindValue(':password', $hashedPassword);
-            $stmt->bindValue(':email', $email);
-            
-            if ($stmt->execute()) {
-                header('Location: login.php');
-                exit;
+            if (insertUser($pdo, $username, $hashedPassword, $email, $role, $status)) {
+                redirect('login.php');
             } else {
                 $signup_error = "Registration failed. Please try again.";
             }
         }
     }
-    
-    // Display the registration form
     include 'templates/registerform.html.php';
     
 } catch (PDOException $e) {

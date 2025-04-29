@@ -7,10 +7,6 @@ if (!isLoggedIn()) {
     redirect('login.php');
 }
 
-// if (!isset($_GET['id'])) {
-//     redirect('index.php');
-// }
-
 $question_id = $_GET['id'];
 
 try {

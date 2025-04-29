@@ -1,48 +1,46 @@
 <?php
 include '../include/session.php';
 include '../include/DatabaseConnection.php';
+include '../include/functions.php'; 
 
-// Check if user is logged in and is an admin (fixed the logic - should be AND not OR)
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
-    header('location: login.php');
-    exit();
-}
 
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $id = $_GET['id'];
-    $admin_id = $_SESSION['user_id'];
+// if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
+//     header('location: login.php');
+//     exit();
+// }
 
-    if ($id == $admin_id) {
-        $_SESSION['error'] = "You cannot disable your own account!";
-        header("Location: index.php");
-        exit();
-    }
+try {
+    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+        $id = $_GET['id'];
+        $admin_id = $_SESSION['user_id'];
 
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
-    $stmt->execute(['id' => $id]);
-    $user = $stmt->fetch();
+        if ($id == $admin_id) {
+            $_SESSION['error'] = "You cannot disable your own account!";
+            redirect("index.php");
+        }
 
-    if (!$user) {
-        $_SESSION['error'] = "User does not exist!";
-        header("Location: index.php");
-        exit();
-    }
+        $user = getUserById($pdo, $id); 
 
-    // disable account
-    $stmt = $pdo->prepare("UPDATE users SET status = 'disabled' WHERE id = :id");
-    $stmt->execute(['id' => $id]);
-    
-    if ($user['role'] === 'admin') {
-        $_SESSION['success'] = "Admin has been disabled successfully!";
+        if (!$user) {
+            $_SESSION['error'] = "User does not exist!";
+            redirect("index.php");
+        }
+
+        disableUserAccount($pdo, $id); 
+
+        if ($user['role'] === 'admin') {
+            $_SESSION['success'] = "Admin has been disabled successfully!";
+        } else {
+            $_SESSION['success'] = "User has been disabled successfully!";
+        }
+
+        redirect("index.php");
     } else {
-        $_SESSION['success'] = "User has been disabled successfully!";
+        $_SESSION['error'] = "Invalid ID!";
+        redirect("index.php");
     }
-    
-    header("Location: index.php");
-    exit();
-} else {
-    $_SESSION['error'] = "Invalid ID!";
-    header("Location: index.php");
-    exit();
+} catch (PDOException $e) {
+    $_SESSION['error'] = "An error occurred: " . $e->getMessage();
+    redirect("index.php");
 }
 ?>

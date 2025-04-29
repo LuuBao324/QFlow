@@ -1,6 +1,6 @@
 <div class="left-side-bar">
+    <div class="filter-content">
         <h3>Modules</h3>
-        
         <form action="filterModule.php" method="POST">
             <div class="module-filters">
             <?php if (isset($modules) && is_array($modules)): ?>
@@ -24,6 +24,7 @@
             <button type="submit" class="filter-button">Apply Filter</button>
             </div>
         </form>
+    </div>
 </div>
 
 <div class="content-container">        

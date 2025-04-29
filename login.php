@@ -3,7 +3,7 @@ include 'include/session.php';
 include 'include/DatabaseConnection.php';
 include 'include/functions.php';
 
-
+try{
     $login_error = '';
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $username = $_POST['username'];
@@ -28,6 +28,12 @@ include 'include/functions.php';
             }
         }    
     }
-include "templates/loginform.html.php"
+    
+    include "templates/loginform.html.php";  
 
+} catch(PDOException $e){
+    error_log('Database Error: ' . $e->getMessage());
+    $login_error = "A system error occurred. Please try again later.";
+    include 'templates/loginform.html.php';
+}
 ?>
