@@ -12,7 +12,6 @@ $question_id = $_GET['id'];
 try {
     $question = getDetailedQuestion($pdo, $question_id);
 
-    // Check if the logged-in user is the author of the question
     if ($question['user_id'] !== $_SESSION['user_id']) {
         redirect('index.php');
     }
@@ -23,7 +22,7 @@ try {
         $module_id = $_POST['module_id'];
         $image = $question['image'];
 
-        // Only process new image if one is uploaded
+        // process new image if one is uploaded
         if (isset($_FILES['image']) && $_FILES['image']['error'] == 0 && !empty($_FILES['image']['name'])) {
             if (!empty($image) && file_exists($image)) {
                 unlink($image);

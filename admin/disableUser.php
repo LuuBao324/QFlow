@@ -4,11 +4,6 @@ include '../include/DatabaseConnection.php';
 include '../include/functions.php'; 
 
 
-// if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
-//     header('location: login.php');
-//     exit();
-// }
-
 try {
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $id = $_GET['id'];

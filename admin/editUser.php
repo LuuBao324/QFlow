@@ -6,7 +6,7 @@ include '../include/functions.php';
 $user_id = $_GET['id'];
 
 try {
-    $user = getUserById($pdo, $user_id); // Use function to fetch user by ID
+    $user = getUserById($pdo, $user_id); 
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = $_POST['username'];
@@ -16,7 +16,7 @@ try {
         if (empty($username) || empty($email) || empty($role)) {
             $error = "Please fill in all information.";
         } else {
-            if (updateUser($pdo, $user_id, $username, $email, $role)) { // Use function to update user
+            if (updateUser($pdo, $user_id, $username, $email, $role)) { 
                 redirect("index.php");
             } else {
                 $error = "Update error!";

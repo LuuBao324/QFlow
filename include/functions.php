@@ -130,6 +130,13 @@ function deleteModule($pdo, $id){
     $parameters = ['id' => $id];
     query($pdo, 'DELETE FROM module WHERE id = :id', $parameters);
 }
+
+function insertModule($pdo, $moduleName) {
+    $query = 'INSERT INTO module (moduleName) VALUES (:moduleName)';
+    $parameters = [':moduleName' => $moduleName];
+    return query($pdo, $query, $parameters);
+}
+
 function getUserById($pdo, $id) {
     $query = 'SELECT * FROM users WHERE id = :id';
     $parameters = [':id' => $id];
