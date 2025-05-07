@@ -16,7 +16,11 @@ function query($pdo, $sql, $parameters = []){
 
 function getDetailedQuestion($pdo, $id){
     $parameters = [':id'=> $id];
-    $query = 'SELECT questions.*, users.username FROM questions JOIN users ON questions.user_id = users.id WHERE questions.id = :id';
+    $query = 'SELECT questions.*, users.username, module.moduleName 
+              FROM questions 
+              JOIN users ON questions.user_id = users.id 
+              JOIN module ON questions.module_id = module.id 
+              WHERE questions.id = :id';
     return query($pdo, $query, $parameters)->fetch();
 }
 

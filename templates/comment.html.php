@@ -6,7 +6,7 @@
                         <img src="assets/account.png" alt="" style="width:35px;" >
                         <div class="user-detail">
                             <span class="username"><?= htmlspecialchars($question['username']) ?></span>
-                            <span class="timestamp"><?= $question['created_at'] ?></span>
+                            <span class="timestamp"><?= $question['created_at'] ?> - <?=htmlspecialchars($question['moduleName']) ?></span>
                         </div>
                     </div>
                 </div>
